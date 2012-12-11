@@ -1,3 +1,8 @@
 /build/
 /nbproject/private/
-/j2meclasses/
+j2meclasses/
+build.*
+nbproject/
+resources/
+suite/
+BSD_License*
