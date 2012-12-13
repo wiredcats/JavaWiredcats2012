@@ -1,6 +1,8 @@
+package MainWiredcats2012;
+
 /**
- * 
  * Replaces the former "Global" joystick interface with a more descriptive file
+ * Works with robot - 12/13/12
  * 
  * @author lillychin
  */
