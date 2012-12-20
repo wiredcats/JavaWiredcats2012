@@ -21,8 +21,14 @@ public class DriveThread extends Thread2415 {
         vicRight = new Victor(2);
     }
     
+    public void doDisabled() {
+        vicLeft.set(0.0);
+        vicRight.set(0.0);
+    }
+    
     public void doAutonomous() {
-        
+        vicLeft.set(0.0);
+        vicRight.set(0.0);
     }
     
     public void doTeleop(){

@@ -7,14 +7,14 @@ import edu.wpi.first.wpilibj.SimpleRobot;
  *
  * @author lillychin
  */
-
 public class JavaWiredcats2012 extends SimpleRobot {
-    
-    Threads.DriveThread driveTask;
-    
+
+    Threads.Thread2415 driveThread, intakeThread;
+
     public JavaWiredcats2012() {
-        driveTask = new Threads.DriveThread(this);
-        
+        driveThread = new Threads.DriveThread(this);
+        intakeThread = new Threads.IntakeThread(this);
+
     }
 
     /**
@@ -22,7 +22,7 @@ public class JavaWiredcats2012 extends SimpleRobot {
      */
     public void autonomous() {
         while (isAutonomous()) {
-            
+
             getWatchdog().feed(); //Again, I thought the watchdog was dead? Maybe Java is different
             Thread.yield();
         }
@@ -32,17 +32,30 @@ public class JavaWiredcats2012 extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-        driveTask.start();
-        while (isOperatorControl() && isEnabled()) { //Not sure how necessary this loop is
-            getWatchdog().feed(); 
+        driveThread.start();
+        intakeThread.start();
+
+        while (isDisabled()) {
+            getWatchdog().feed();
             Thread.yield();
         }
-        
+
+        while (isAutonomous() && isEnabled()) {
+            getWatchdog().feed();
+            Thread.yield();
+        }
+
+        while (isOperatorControl() && isEnabled()) { //Not sure how necessary this loop is
+            getWatchdog().feed();
+            Thread.yield();
+        }
+
         try {
-            driveTask.join();
+            driveThread.join();
+            intakeThread.join();
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
     }
 }
