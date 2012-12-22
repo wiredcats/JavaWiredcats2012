@@ -5,16 +5,24 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 /**
  * Main class for the Java version of Team 2415's 2012 C++ code
  *
+ * Ugh, the ME edition of Java is really limited:
+ * http://www.chiefdelphi.com/forums/showthread.php?t=106739
+ * http://www.chiefdelphi.com/forums/showthread.php?t=106520&highlight=java+generics
+ * ^^ why we can't have nice things
+ * http://docs.oracle.com/javame/config/cldc/ref-impl/cldc1.1/jsr139/index.html
+ *
+ * Why we use Windriver for C++:
+ * http://www.chiefdelphi.com/forums/showthread.php?t=89539&highlight=java+generics
+ *
  * @author lillychin
  */
 public class JavaWiredcats2012 extends SimpleRobot {
 
-    Threads.Thread2415 driveThread, intakeThread;
+    //List of Threads = important!
+    Threads.Thread2415 threads[] = {new Threads.DriveThread(this),
+                                    new Threads.IntakeThread(this)};
 
     public JavaWiredcats2012() {
-        driveThread = new Threads.DriveThread(this);
-        intakeThread = new Threads.IntakeThread(this);
-
     }
 
     /**
@@ -32,8 +40,9 @@ public class JavaWiredcats2012 extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-        driveThread.start();
-        intakeThread.start();
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].start();
+        }
 
         while (isDisabled()) {
             getWatchdog().feed();
@@ -51,8 +60,9 @@ public class JavaWiredcats2012 extends SimpleRobot {
         }
 
         try {
-            driveThread.join();
-            intakeThread.join();
+            for (int i = 0; i < threads.length; i++) {
+                threads[i].join();
+            }
         } catch (InterruptedException ex) {
             System.out.println(ex.getMessage());
         }
