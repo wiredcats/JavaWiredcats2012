@@ -7,6 +7,8 @@ package Threads;
 public abstract class Thread2415 extends Thread {
 
     private MainWiredcats2012.JavaWiredcats2012 robot2415;
+    private String threadName;
+//    private THREAD_STATE threadState;
 
     public Thread2415(MainWiredcats2012.JavaWiredcats2012 robot) {
         robot2415 = robot;
@@ -34,4 +36,5 @@ public abstract class Thread2415 extends Thread {
     public abstract void doDisabled();
     public abstract void doAutonomous();
     public abstract void doTeleop();
+    
 }

@@ -1,7 +1,7 @@
 /build/
 /nbproject/private/
 j2meclasses/
-build.*
+build.properties
 nbproject/
 resources/
 suite/

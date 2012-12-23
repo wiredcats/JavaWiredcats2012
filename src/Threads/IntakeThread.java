@@ -22,6 +22,7 @@ public class IntakeThread extends Thread2415 {
     
     public void doDisabled() {
         tower.set(Relay.Value.kOff);
+        feed.set(0.0);
     }
 
     public void doAutonomous() {
