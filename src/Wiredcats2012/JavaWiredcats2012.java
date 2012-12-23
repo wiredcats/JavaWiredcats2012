@@ -1,4 +1,4 @@
-package MainWiredcats2012;
+package Wiredcats2012;
 
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Compressor;
@@ -31,6 +31,8 @@ public class JavaWiredcats2012 extends SimpleRobot {
     }
     
     public void disabled() {
+        for (int i = 0; i < threads.length; i++) { threads[i].start(); }
+        
         while(isDisabled()) {
             getWatchdog().feed();
             Thread.yield();
@@ -47,6 +49,8 @@ public class JavaWiredcats2012 extends SimpleRobot {
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
+        for (int i = 0; i < threads.length; i++) { threads[i].start(); }
+        
         while (isAutonomous()) {
             getWatchdog().feed(); //Again, I thought the watchdog was dead? Maybe Java is different
             Thread.yield();

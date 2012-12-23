@@ -1,4 +1,4 @@
-package MainWiredcats2012;
+package Wiredcats2012;
 
 /**
  * Replaces the former "Global" joystick interface with a more descriptive file
