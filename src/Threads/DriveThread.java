@@ -27,11 +27,6 @@ public class DriveThread extends Thread2415 {
 
         brakeTimer = new Timer();
     }
-    
-    protected String[] setThreadStates() {
-        String[] output = {"WAIT_FOR_INPUT"};
-        return output;
-    }
 
     protected void doDisabled() {
         vicLeft.set(0.0);
@@ -43,6 +38,8 @@ public class DriveThread extends Thread2415 {
         
         prevBState = false;
         firstTime = true;
+        
+        currentState = ThreadState.WAIT_FOR_INPUT;
     }
 
     protected void doTeleop() {
@@ -53,5 +50,13 @@ public class DriveThread extends Thread2415 {
     protected void doAutonomous() {
         vicLeft.set(0.0);
         vicRight.set(0.0);
+    }
+    
+    protected void doThreadState() {
+        switch(currentState) {
+            default:
+                currentState = ThreadState.WAIT_FOR_INPUT;
+                break;
+        }
     }
 }

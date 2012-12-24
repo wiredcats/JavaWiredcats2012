@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 /**
  * Handles purely intake = feed and tower polycord
- * 
+ *
  * @author LillyChin
  */
 public class IntakeThread extends Thread2415 {
@@ -18,12 +18,6 @@ public class IntakeThread extends Thread2415 {
         super(robot);
         feed = new Victor(5);
         tower = new Relay(8);
-    }
-    
-    protected String[] setThreadStates() {
-        String[] output = { "WAIT_FOR_INPUT",
-                            "SHOOT"};
-        return output;
     }
 
     protected void doDisabled() {
@@ -45,5 +39,20 @@ public class IntakeThread extends Thread2415 {
     }
 
     protected void doAutonomous() {
+    }
+
+    protected void doThreadState() {
+        switch (currentState) {
+            case ThreadState.WAIT_FOR_INPUT:
+                tower.set(Relay.Value.kOff);
+                break;
+            case ThreadState.SHOOT:
+                tower.set(Relay.Value.kReverse);
+                feed.set(-1.0);
+                break;
+            default:
+                currentState = ThreadState.WAIT_FOR_INPUT;
+                break;
+        }
     }
 }

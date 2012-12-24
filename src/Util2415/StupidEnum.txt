@@ -1,0 +1,76 @@
+// OKAY
+// MORAL OF THE STORY:
+// ALWAYS RUBBER DUCK
+
+// SOLUTION:
+// WE ARE JUST GOING TO GO BACK TO THE OLD WAY OF SWITCHING ON CONSTANT INTEGERS EVEN THOUGH IT IS BORING AND MANUAL
+// THESE CONSTANT INTEGERS WILL HAVE THE SAME NAME AS THEIR STRING COUNTERPART WHICH IS STORED VIA HASHMAP
+// THAT IS HOW WE ARE PRINTING OUT STUFF
+// THE CODE WILL STILL BE JUST AS READABLE
+// AND THE PRINT OUTS WHICH WERE THE THINGS THAT I WANTED TO MAKE READABLE WILL BE FINE
+// GG NO FRIGGIN' RE
+
+
+
+
+
+// http://www.chiefdelphi.com/forums/showpost.php?p=964715&postcount=3
+
+//The typesafe enum pattern
+public class Suit {
+    public final int value;
+
+    protected static final int CLUBS_VAL = 0;
+    protected static final int DIAMONDS_VAL = 1;
+    protected static final int HEARTS_VAL = 2;
+    protected static final int SPADES_VAL = 3;
+
+    public static final Suit CLUBS = new Suit(CLUBS_VAL);
+    public static final Suit DIAMONDS = new Suit(DIAMONDS_VAL);
+    public static final Suit HEARTS = new Suit(HEARTS_VAL);
+    public static final Suit SPADES = new Suit(SPADES_VAL);
+
+    private Suit(int value){
+        this.value = value;
+    }
+}
+
+//Even better: http://www.javacamp.org/designPattern/enum.html
+//Ordinal-based typesafe enum
+//Switch based on the "ordinal" value and then can also preserve the name
+//Only thing bad about this is still need to declare subclass for each thread 
+// Use that "class within a class" trick Kaplan showed me?
+// Actually no we don't, just make a ton of final variables and use across
+public class Suit implements Comparable {
+    private final String name;
+    
+    public static final Suit CLUBS =new Suit("clubs");
+    public static final Suit DIAMONDS =new Suit("diamonds");
+    public static final Suit HEARTS =new Suit("hearts");
+    public static final Suit SPADES =new Suit("spades");
+    
+    //Ordinal of next suit to be created
+    private static int nextOrdinal =0;
+   
+   //Assign an ordinal to this suit
+    private final int ordinal =nextOrdinal++;
+    
+    private Suit(String name){
+        this.name =name;
+    }
+    public String toString(){
+        return name;
+    }
+    public int compareTo(Object o){
+       return ordinal -((Suit)o).ordinal;
+    }
+}
+
+//ARGH MORE STUPIDITY WITH SWITCH STATEMENTS
+// http://mindprod.com/jgloss/constant.html
+
+//Ok, so let's try this way:
+// http://webcache.googleusercontent.com/search?q=cache:eLHtn2-cFAUJ:cat.pdx.edu/documents/enumjava.ps+&cd=5&hl=en&ct=clnk&gl=us
+// http://cat.pdx.edu/documents/enumjava.ps
+// Only trouble is that we don't have the ArrayList or iterator
+// Time to derp around with Vectors!
