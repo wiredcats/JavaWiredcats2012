@@ -1,6 +1,7 @@
 package Util2415;
 
 import java.util.Hashtable;
+import java.lang.Double;
 
 /**
  * Code to read from CSV file and reupdate constants
@@ -9,14 +10,15 @@ import java.util.Hashtable;
  */
 public abstract class CSVReader {
 
-    //Version 1.3 does not support generics :( :( :(
-    //Also, they use a sort of pidgin Hashtable which works slightly differently
+    // They use a sort of pidgin Hashtable which works slightly differently
     // http://docs.oracle.com/javame/config/cldc/ref-impl/cldc1.1/jsr139/index.html
     
-    private static Hashtable<String, Double> resources = new Hashtable<String, Double>();
+    private static Hashtable resources = new Hashtable();
 
-    public static double getValue(String s) {
-        return resources.get(s);
+    public static Double getValue(String s) {
+        //Getting errors on this line
+        // "inconvertible types: required: double. Found: Object"
+        return (Double)resources.get(s); 
     }
 
     public void getFromFile(String s) {
@@ -24,7 +26,7 @@ public abstract class CSVReader {
             Scanner sc = new Scanner(s);
 
             while (sc.hasNext()) {
-                resources.put(sc.next(), Double.parseDouble(sc.next()));
+                resources.put(sc.next(), new Double (Double.parseDouble(sc.next())));
             }
             sc.close();
         } catch (Exception ioe) {
