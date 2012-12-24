@@ -1,6 +1,8 @@
 package Util2415;
 
 import java.io.InputStream;
+import javax.microedition.io.InputConnection;
+import javax.microedition.io.Connector;
 
 /**
  * Homebrew Scanner class
@@ -15,7 +17,6 @@ public class Scanner {
 
     public Scanner(String fileName) {
         try {
-            //InputConnection and Connector are not declared. Having trouble finding what libraries I should import
             InputConnection connection = (InputConnection) Connector.open("file:///" + fileName, Connector.READ);
             input = connection.openDataInputStream();
         } catch (Exception e) {
