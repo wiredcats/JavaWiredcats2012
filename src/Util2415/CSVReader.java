@@ -15,23 +15,42 @@ public abstract class CSVReader {
     
     private static Hashtable resources = new Hashtable();
 
-    public static Double getValue(String s) {
-        //Getting errors on this line
-        // "inconvertible types: required: double. Found: Object"
-        return (Double)resources.get(s); 
+    public static double getValue(String s) {
+        OurDouble d = (OurDouble)resources.get(s); 
+        return d.d;
     }
 
-    public void getFromFile(String s) {
+    public static void getFromFile(String s) {
+        System.out.println("1");
         try {
+            System.out.println("2");
             Scanner sc = new Scanner(s);
-
+            System.out.println("3");
+            String tempString;
+            System.out.println("4");
+            OurDouble tempDouble;
+            System.out.println("5");
             while (sc.hasNext()) {
-                resources.put(sc.next(), new Double (Double.parseDouble(sc.next())));
+                System.out.println("6");
+                tempString = sc.next();
+                System.out.println("7");
+                tempDouble = new OurDouble( Double.parseDouble(sc.next()) );
+                resources.put(tempString, tempDouble);
             }
             sc.close();
         } catch (Exception ioe) {
             ioe.printStackTrace();
             System.exit(-1);
+        }
+    }
+    
+    private static class OurDouble
+    {
+        public double d;
+        
+        public OurDouble(double d1)
+        {
+            this.d = d1;
         }
     }
 }

@@ -9,6 +9,9 @@ package Threads;
  *
  * @author LillyChin
  */
+
+import Util2415.CSVReader;
+
 public abstract class Thread2415 extends Thread {
 
     private Wiredcats2012.JavaWiredcats2012 robot2415;
@@ -25,9 +28,17 @@ public abstract class Thread2415 extends Thread {
     public void run() {
         while (true) {
             doThreadState();
-            if (robot2415.isDisabled()) doDisabled();
-            else if (robot2415.isAutonomous()) doAutonomous();
-            else if (robot2415.isOperatorControl()) doTeleop();
+            if (robot2415.isDisabled()) {
+                doDisabled();
+            } 
+            
+            if (robot2415.isAutonomous() && robot2415.isEnabled()) {
+                doAutonomous();
+            }
+            
+            if(robot2415.isOperatorControl() && robot2415.isEnabled()) {
+                doTeleop();
+            }
             Thread.yield();
         }
     }

@@ -19,9 +19,12 @@ import edu.wpi.first.wpilibj.Compressor;
  */
 public class JavaWiredcats2012 extends SimpleRobot {
 
-    //List of Threads = important!
+    //List of Threads = IMPORTANT!!!!!
+    //Wait how am I going to talk across threads for controllers
+    // Ugh flowchart bluh
     Threads.Thread2415 threads[] = {new Threads.DriveThread(this),
-                                    new Threads.IntakeThread(this)};
+                                    new Threads.IntakeThread(this), 
+                                    new Threads.ArmThread(this)};
     
     Compressor compressor;
  

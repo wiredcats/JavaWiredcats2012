@@ -39,6 +39,8 @@ public class Scanner {
         String s = "";
 
         try {
+        //Unhappy with having input.read() return an int but then have "read" being a char
+        //Tried casting it but then it was unhappy with uncaught IOExceptions
             char read = (char) input.read();
             System.out.println(read);
             while (read == ' ' || read == '\n') {
@@ -63,6 +65,7 @@ public class Scanner {
                     return s; //if the final character is found, then return this.
                 }
             }
+            
         } catch (IOException ioe) {
             ioe.printStackTrace();
             System.out.println("IOException: the file is not found");

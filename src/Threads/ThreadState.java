@@ -18,6 +18,10 @@ public final class ThreadState {
     protected static final int WAIT_FOR_INPUT = 0;
     protected static final int SHOOT = 1;
     
+    //At this point, I should probably pull out a flowchart and think about whether this is the smartest way to reorganize things
+    // I.e. while splitting things into subsystems is good
+    // I think I need to do some long and hard thinking about whether having states / controllers is the best way to communicate
+    // Maybe I should just have lots of functions
     public ThreadState() {
         names.put(new Integer(WAIT_FOR_INPUT), "WAIT_FOR_INPUT");   
         names.put(new Integer(SHOOT), "SHOOT");

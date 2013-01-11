@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 
+import Util2415.CSVReader;
+
 /**
 
  *
@@ -26,6 +28,7 @@ public class DriveThread extends Thread2415 {
         brakeNow = new Solenoid(1, 7);
 
         brakeTimer = new Timer();
+        CSVReader.getFromFile("CheesyConfig.txt");
     }
 
     protected void doDisabled() {
@@ -45,11 +48,15 @@ public class DriveThread extends Thread2415 {
     protected void doTeleop() {
         vicLeft.set(Joystick2415.primaryGetLeftY());
         vicRight.set(Joystick2415.primaryGetRightY());
+        
+//        System.out.println("I'm in teleop and the value is " + Util2415.CSVReader.getValue("derp"));
     }
 
     protected void doAutonomous() {
         vicLeft.set(0.0);
         vicRight.set(0.0);
+        
+//        System.out.println("I'm in auto and the value is " + Util2415.CSVReader.getValue("herp"));
     }
     
     protected void doThreadState() {
