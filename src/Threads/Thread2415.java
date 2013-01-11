@@ -30,7 +30,7 @@ public abstract class Thread2415 extends Thread {
             doThreadState();
             if (robot2415.isDisabled()) {
                 doDisabled();
-            } 
+            }
             
             if (robot2415.isAutonomous() && robot2415.isEnabled()) {
                 doAutonomous();

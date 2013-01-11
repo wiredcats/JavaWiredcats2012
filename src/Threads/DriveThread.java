@@ -28,7 +28,6 @@ public class DriveThread extends Thread2415 {
         brakeNow = new Solenoid(1, 7);
 
         brakeTimer = new Timer();
-        CSVReader.getFromFile("CheesyConfig.txt");
     }
 
     protected void doDisabled() {
@@ -56,7 +55,7 @@ public class DriveThread extends Thread2415 {
         vicLeft.set(0.0);
         vicRight.set(0.0);
         
-//        System.out.println("I'm in auto and the value is " + Util2415.CSVReader.getValue("herp"));
+        System.out.println("I'm in auto and the value is " + Util2415.CSVReader.getValue("herp"));
     }
     
     protected void doThreadState() {

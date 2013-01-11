@@ -1,5 +1,6 @@
 package Wiredcats2012;
 
+import Util2415.CSVReader;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Compressor;
 
@@ -31,20 +32,15 @@ public class JavaWiredcats2012 extends SimpleRobot {
     public JavaWiredcats2012() {
         compressor = new Compressor(6,1);
         compressor.start(); //I think this is ok, might need to move out to the autonomous / teleop functions
+        for (int i = 0; i < threads.length; i++) { threads[i].start(); }
     }
     
     public void disabled() {
-        for (int i = 0; i < threads.length; i++) { threads[i].start(); }
-        
+        CSVReader.getFromFile("CheesyConfig.txt");
         while(isDisabled()) {
+            CSVReader.getFromFile("CheesyConfig.txt");
             getWatchdog().feed();
             Thread.yield();
-        }
-        
-        try {
-            for (int i = 0; i < threads.length; i++) { threads[i].join(); }
-        } catch (InterruptedException ex) {
-            System.out.println(ex.getMessage());
         }
     }
 
@@ -52,17 +48,9 @@ public class JavaWiredcats2012 extends SimpleRobot {
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
-        for (int i = 0; i < threads.length; i++) { threads[i].start(); }
-        
         while (isAutonomous()) {
             getWatchdog().feed(); //Again, I thought the watchdog was dead? Maybe Java is different
             Thread.yield();
-        }
-        
-        try {
-            for (int i = 0; i < threads.length; i++) { threads[i].join(); }
-        } catch (InterruptedException ex) {
-            System.out.println(ex.getMessage());
         }
     }
 
@@ -70,18 +58,11 @@ public class JavaWiredcats2012 extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-        for (int i = 0; i < threads.length; i++) { threads[i].start(); }
+        System.out.println("Teleop!");
 
         while (isOperatorControl() && isEnabled()) { //Not sure how necessary this loop is
             getWatchdog().feed();
             Thread.yield();
         }
-
-        try {
-            for (int i = 0; i < threads.length; i++) { threads[i].join(); }
-        } catch (InterruptedException ex) {
-            System.out.println(ex.getMessage());
-        }
-
     }
 }

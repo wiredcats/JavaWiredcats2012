@@ -21,19 +21,12 @@ public abstract class CSVReader {
     }
 
     public static void getFromFile(String s) {
-        System.out.println("1");
         try {
-            System.out.println("2");
             Scanner sc = new Scanner(s);
-            System.out.println("3");
             String tempString;
-            System.out.println("4");
             OurDouble tempDouble;
-            System.out.println("5");
             while (sc.hasNext()) {
-                System.out.println("6");
                 tempString = sc.next();
-                System.out.println("7");
                 tempDouble = new OurDouble( Double.parseDouble(sc.next()) );
                 resources.put(tempString, tempDouble);
             }
